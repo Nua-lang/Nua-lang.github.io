@@ -475,7 +475,7 @@ a {
 
 main {
   margin-top: 2em;
-  float: left; }
+  float: center; }
   main .intro {
     border-bottom: solid 1px #ebebec;
     margin-bottom: -0.5em; }
@@ -507,7 +507,7 @@ p + p {
 code, pre {
   color: #3d4c5c;
   font: 13px "Source Code Pro", Menlo, Monaco, Consolas, monospace;
-  
+
   background: #fcfcfc;
   border-radius: 2px;
   border: solid 1px #dae2e7; }
@@ -527,13 +527,12 @@ footer {
   margin-top: 4em;
   padding: 20px 0 40px 0;
   font: 14px "Source Sans Pro", georgia, serif;
-  background: #394046;
-  color: #d7d8da;
-  border-top: solid 1px #14191f;
+  background: ;
+  color: ;
   text-align: center;
-  text-shadow: 0 1px 1px #14191f; }
+   }
   footer a {
-    color: #99ccff; }
+    color: dodgerblue; }
   footer a:hover {
     color: #3399cc; }
 
@@ -629,12 +628,12 @@ table.chart {
     display: inline-block;
     font: 13px "Source Sans Pro", georgia, serif;
     color: white;
-    background: #3399cc;
+    background: gray;
     border-bottom: solid 1px #143352;
     text-align: right;
     border-radius: 2px; }
   table.chart .chart-bar.wren {
-    background: #1d5176;
+    background: gray;
     border-bottom: solid 1px #143352; }
 
 table.precedence th {
@@ -681,6 +680,7 @@ table.precedence td {
     letter-spacing: 1px; } }
 @media only screen and (max-width: 639px) {
   .page {
+    text-align: center;
     width: 100%; }
 
   nav.big {
@@ -690,7 +690,7 @@ table.precedence td {
     display: block; }
 
   .main-column, main {
-    padding: 0 20px;
+    padding: ;
     width: 100%; }
 
   header h1 {
@@ -726,114 +726,124 @@ table.precedence td {
 </head>
 <body id="top">
 <header>
-  <div class="page">
+  <div class="page" style="text-align: center;">
     <div class="main-column">
-      <a href=""><img src="https://github.com/Nua-lang/Images/blob/master/NuaLogoName.png"></img></a>
-      <h2>a stable reimplementation of the Lua-C </h2>      
+      <h1>Nua </h1>
+      <h2>a stable reimplementation of the Lua-C </h2>
     </div>
   </div>
 </header>
 <div class="page">
-  <nav class="big">
-    
- 
-    <section>
-      <h2>guides</h2>
-      <ul>
-        <li><a href="syntax.html">Syntax</a></li>
-        <li><a href="values.html">Values</a></li>
-        <li><a href="lists.html">Lists</a></li>
-        <li><a href="maps.html">Maps</a></li>
-        <li><a href="method-calls.html">Method Calls</a></li>
-        <li><a href="control-flow.html">Control Flow</a></li>
-        <li><a href="variables.html">Variables</a></li>
-        <li><a href="functions.html">Functions</a></li>
-        <li><a href="classes.html">Classes</a></li>
-        <li><a href="concurrency.html">Concurrency</a></li>
-        <li><a href="error-handling.html">Error Handling</a></li>
-        <li><a href="modularity.html">Modularity</a></li>
-      </ul>
-    </section>
-    <section>
 
-    </section>
-  </nav>
-  <nav class="small">
-    <table>
-      <tr>
-        <div><a href="getting-started.html">Getting Started</a></div>
-        <div><a href="contributing.html">Contributing</a></div>
-        <div><a href="blog">Blog</a></div>
-      </tr>
-      <tr>
-        <td colspan="2"><h2>guides</h2></td>
-        <td><h2>reference</h2></td>
-      </tr>
-      <tr>
-        <td>
-          <ul>
-            <li><a href="syntax.html">Syntax</a></li>
-            <li><a href="values.html">Values</a></li>
-            <li><a href="lists.html">Lists</a></li>
-            <li><a href="maps.html">Maps</a></li>
-            <li><a href="method-calls.html">Method Calls</a></li>
-            <li><a href="control-flow.html">Control Flow</a></li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li><a href="variables.html">Variables</a></li>
-            <li><a href="functions.html">Functions</a></li>
-            <li><a href="classes.html">Classes</a></li>
-            <li><a href="concurrency.html">Concurrency</a></li>
-            <li><a href="error-handling.html">Error Handling</a></li>
-            <li><a href="modularity.html">Modularity</a></li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li><a href="modules">Modules</a></li>
-            <li><a href="embedding">Embedding</a></li>
-            <li><a href="performance.html">Performance</a></li>
-            <li><a href="qa.html">Q &amp; A</a></li>
-          </ul>
-        </td>
-      </tr>
-    </table>
-  </nav>
+
+
+
+
   <main>
     <h2></h2>
     <h2>Nua is a lightweight, fast object-oriented programming language <a href="#wren-is-a-small,-fast,-class-based-concurrent-scripting-language" name="wren-is-a-small,-fast,-class-based-concurrent-scripting-language" class="header-anchor"></a></h2>
 <hr />
 <p>Lua VM in JavaScript that transpiles to C.
 It has a modern <a href="syntax.html">syntax</a>. </p>
-<div class="codehilite"><pre><span class="vg">local</span><span class="o"> = </span><span class="n">require</span><span class="p">(</span><span class="s">&quot;./Nuac.nua&quot;</span><span class="p">)</span>
+<div class="codehilite"><pre><span style="color: #1b9898;">local</span><span class="o"> = </span><span class="vg">require</span><span class="p">(</span><span class="s">&quot;./Nuac.nua&quot;</span><span class="p">)</span>
 
-<span class="k">function</span> <span class="vg">fib</span> <span class="p">(n)</span> 
-  <span class="n">if</span><span class="p">(n</span><span class="n"> < 0</span><span class="p">)</span> <span class="p"></span> 
-    <span class="vg">then</span><span class="o"> </span><span class="n">print</span><span class="p"></span><span class="s">(n)</span><span class="si"></span><span class="n"></span><span class="si"></span><span class="s"></span><span class="p"></span> 
-  <span class="vg">else</span><span> print</span><span class="s">(n - 1) + (n + 2)</span> 
-<span class="vg">end</span>
+<span style="color: #1b9898;">function</span> <span class="vg">fib</span> <span class="p">(<span class="vg">n</span>)</span>
+  <span class="k">if</span><span class="p">(<span class="vg">n</span></span><span class="n"> < <span class="s">0</span></span><span class="p">)</span> <span class="p"></span>
+    <span class="k">then</span><span class="o"> </span><span style="color: #1b9898;">print</span><span class="p"></span><span class="">(</span><span class="vg">n</span>)</span><span class="si"></span><span class="n"></span><span class="si"></span><span class="s"></span><span class="p"></span>
+  <span class="k">else</span><span style="color: #1b9898;"> print</span>(</span><span class="s"><span class="vg">n</span> - 1</span>) + (<span class="vg">n</span><span class="s"> + 2</span>)</span>
+<span style="color: #1b9898;">end</span>
+<span style="font-weight: cursive;" class="p">--should print the fibonnacci serie</span>
 
 </pre></div>
 
 
-<ul>
-<li>
-<p><strong>Nua is strong.</strong> The JS - Api implementation is  exactly the <a href="https:/rc">same as the C - Api</a>. 
-    It's syntax bases on <em>Lua 5.3.4</em>, but has 
-    <em>some</em>modified builtins. It is readable and <a href="https://github3">production ready</a>. </p>
-</li>
-<li>
+
+
+<p><strong>Nua is strong.</strong> The JS - Api implementation is  exactly the <a href="https:/rc">same as the C - Api</a>.
+    It's syntax bases on <em>Lua 5.3.4</em>, but has
+    <em>some </em>modified builtins. It is readable and <a href="https://github3">production ready</a>. </p>
+
+
 <p><strong>Nua is fast.</strong> A fast tree-byte interpreter and a efficient C-VM are using
-    lightweight fibers <a href="performance.html">for couroutines 
+    lightweight fibers <a href="performance.html">for couroutines
     </a>. </p>
-</li>
+    <hr />
+    <h4>C-bindings</h4>
+    <p>Nua has explicit <strong>new</strong> C bindings
+    in order to share code across the C <a href="syntax.html">librairy</a>. </p>
+    <div class="codehilite"><pre>
+    <span class="vg">#include "nuac.h"
+    #include "nuac.hpp"
+
+  </span><span class="p">//embedding the stdlib for C</span>
+    </span>
+    </pre></div>
+<p>Initializing the VM in C. Load the C-Api from JS to C. So this code is kinda a little embedded VM in C.
+It is very easy to handle. While building the NuaC-Lib in node.js, it will directly build the C-core VM. So you can use these definitions rightaway.
+</p>
+<div class="codehilite"><pre>
+<span>#include "nuac.h"
+#include "nuac.hpp"
+#include "nua.nua"
+#include "nuac.nua"
 
 
+  typedef struct
+{
+  NuaReallocateFn reallocateFn;
+  NuaLoadModuleFn loadModuleFn;
+  NuaBindForeignMethodFn bindForeignMethodFn;
+  NuaBindForeignClassFn bindForeignClassFn;
+  NuaWriteFn writeFn;
+  NuaErrorFn errorFn;
+  size_t initialHeapSize;
+  size_t minHeapSize;
+  int heapGrowthPercent;
+} NuaConfiguration;</span>
+</pre></div>
+<p>Calling Nua data from C. So you just can handle the Nua data as a imported C data that can strore it in the NuaC.</p>
+    <div class="codehilite"><pre>
+    <span class="">  local = require("c.hpp")
+      local = require("c.c")
+      local = require("nuac.hpp")
+      local = require("nuac.c")
+      local = require("nuac.nua")
+    <span class="vg">foreign class NuaWriteFn </span>{</span>
+    <span>  printf("Hello, from C!")</span>
+    <span>}</span>
+    </pre></div>
+<p>Basically the above code hits the definitions written in C and stores it's data in NuaC.</p>
+<hr>
 
-<hr />
+<h4>Nua means quality!</h4>
+<p><strong>Nua is strong!</strong> Nua is tested against Python3, Ruby, Dart, LuaJIT (J - enabled), Csharp and Haskell.<a href="https:/rc"> see the benchmarks here.</a>
+  <h4>Fibonacci-sequence:</h4>
+  <table class="chart">
+    <tr>
+      <th>Nua</th><td><div class="chart-bar wren" style="width: 17%;">0.15&nbsp;</div></td>
+    </tr>
+    <tr>
+      <th>ruby</th><td><div class="chart-bar" style="width: 35%;">0.22s&nbsp;</div></td>
 
+    </tr>
+    <tr>
+      <th>luajit (-j-on)</th><td><div class="chart-bar" style="width: 39%;">0.28s&nbsp;</div></td>
+
+    </tr>
+    <tr>
+      <th>csharp</th><td><div class="chart-bar" style="width: 49%;">0.28s&nbsp;</div></td>
+    </tr>
+    <tr>
+      <th>Haskell</th><td><div class="chart-bar" style="width: 90%;">0.51s&nbsp;</div></td>
+    </tr>
+    <tr>
+      <th>python3</th><td><div class="chart-bar" style="width: 100%;">0.57s&nbsp;</div></td>
+    </tr>
+  </table>
+<p>The fib function is tested on a Lenovo L390 Yoga with an Intel core(R)(TM) i5-8265U CPU @ 1.60GHz - 1.80GHz. 8.00GB RAM memory on windows 10.
+As we see Nua is on <strong>first</strong> position. Hurray! But as we know we'have tested the fib with LuaJIT J-enabled. Would it be disabled it would be <strong>very much</strong> faster.
+The Nua is tested on the NuaC -librairy, that means it will be transpiled to C. So that's the source of Quality. However, NuaC is using until 32bit variables, that will make it faster. We're working still on 64-bits. 
+</p>
   </main>
 </div>
 <footer>
