@@ -1,609 +1,889 @@
 <!DOCTYPE html>
-<html>
-<head>
-<style>
-/* latin-ext */
-@font-face {
-  font-family: 'Lato';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Lato Regular'), local('Lato-Regular'), url(https://fonts.gstatic.com/s/lato/v16/S6uyw4BMUTPHjxAwXjeu.woff2) format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>-Nua | Lua for the future</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Nua" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="." />
+<meta property="og:description" content="." />
+<link rel="canonical" href="https://.com/" />
+<meta property="og:url" content="https://.com/" />
+<meta property="og:site_name" content="Nua" />
+<script type="application/ld+json">
+{"@type":"WebSite","url":"https://.com/","headline":"LLCOM","name":"LLCOM","description":"能跑Lua代码的串口调试工具！","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <style>
+    /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
+
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,700");
+html {
+    font-family: sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%
 }
-/* latin */
-@font-face {
-  font-family: 'Lato';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Lato Regular'), local('Lato-Regular'), url(https://fonts.gstatic.com/s/lato/v16/S6uyw4BMUTPHjx4wXg.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+
+body {
+    margin: 0
 }
-/* latin-ext */
-@font-face {
-  font-family: 'Sanchez';
-  font-style: italic;
-  font-weight: 400;
-  src: local('Sanchez Italic'), local('Sanchez-Italic'), url(https://fonts.gstatic.com/s/sanchez/v7/Ycm0sZJORluHnXbIfmxh8TQA9l0.woff2) format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+    display: block
 }
-/* latin */
-@font-face {
-  font-family: 'Sanchez';
-  font-style: italic;
-  font-weight: 400;
-  src: local('Sanchez Italic'), local('Sanchez-Italic'), url(https://fonts.gstatic.com/s/sanchez/v7/Ycm0sZJORluHnXbIfmxh_zQA.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+
+audio,
+canvas,
+progress,
+video {
+    display: inline-block;
+    vertical-align: baseline
 }
-/* latin-ext */
-@font-face {
-  font-family: 'Sanchez';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Sanchez'), local('Sanchez-Regular'), url(https://fonts.gstatic.com/s/sanchez/v7/Ycm2sZJORluHnXbIfmdR_SwE.woff2) format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+
+audio:not([controls]) {
+    display: none;
+    height: 0
 }
-/* latin */
-@font-face {
-  font-family: 'Sanchez';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Sanchez'), local('Sanchez-Regular'), url(https://fonts.gstatic.com/s/sanchez/v7/Ycm2sZJORluHnXbIfmlR_Q.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+
+[hidden],
+template {
+    display: none
 }
-/* cyrillic-ext */
-@font-face {
-  font-family: 'Source Code Pro';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Source Code Pro Regular'), local('SourceCodePro-Regular'), url(https://fonts.gstatic.com/s/sourcecodepro/v11/HI_SiYsKILxRpg3hIP6sJ7fM7PqlMOvWjMY.woff2) format('woff2');
-  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+
+a {
+    background-color: transparent
 }
-/* cyrillic */
-@font-face {
-  font-family: 'Source Code Pro';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Source Code Pro Regular'), local('SourceCodePro-Regular'), url(https://fonts.gstatic.com/s/sourcecodepro/v11/HI_SiYsKILxRpg3hIP6sJ7fM7PqlOevWjMY.woff2) format('woff2');
-  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+
+a:active,
+a:hover {
+    outline: 0
 }
-/* greek */
-@font-face {
-  font-family: 'Source Code Pro';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Source Code Pro Regular'), local('SourceCodePro-Regular'), url(https://fonts.gstatic.com/s/sourcecodepro/v11/HI_SiYsKILxRpg3hIP6sJ7fM7PqlPuvWjMY.woff2) format('woff2');
-  unicode-range: U+0370-03FF;
+
+abbr[title] {
+    border-bottom: 1px dotted
 }
-/* vietnamese */
-@font-face {
-  font-family: 'Source Code Pro';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Source Code Pro Regular'), local('SourceCodePro-Regular'), url(https://fonts.gstatic.com/s/sourcecodepro/v11/HI_SiYsKILxRpg3hIP6sJ7fM7PqlMuvWjMY.woff2) format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+
+b,
+strong {
+    font-weight: bold
 }
-/* latin-ext */
-@font-face {
-  font-family: 'Source Code Pro';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Source Code Pro Regular'), local('SourceCodePro-Regular'), url(https://fonts.gstatic.com/s/sourcecodepro/v11/HI_SiYsKILxRpg3hIP6sJ7fM7PqlM-vWjMY.woff2) format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+
+dfn {
+    font-style: italic
 }
-/* latin */
-@font-face {
-  font-family: 'Source Code Pro';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Source Code Pro Regular'), local('SourceCodePro-Regular'), url(https://fonts.gstatic.com/s/sourcecodepro/v11/HI_SiYsKILxRpg3hIP6sJ7fM7PqlPevW.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+
+h1 {
+    font-size: 2em;
+    margin: 0.67em 0
 }
-/* cyrillic-ext */
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: italic;
-  font-weight: 400;
-  src: local('Source Sans Pro Italic'), local('SourceSansPro-Italic'), url(https://fonts.gstatic.com/s/sourcesanspro/v13/6xK1dSBYKcSV-LCoeQqfX1RYOo3qPZ7qsDJT9g.woff2) format('woff2');
-  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+
+mark {
+    background: #ff0;
+    color: #000
 }
-/* cyrillic */
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: italic;
-  font-weight: 400;
-  src: local('Source Sans Pro Italic'), local('SourceSansPro-Italic'), url(https://fonts.gstatic.com/s/sourcesanspro/v13/6xK1dSBYKcSV-LCoeQqfX1RYOo3qPZ7jsDJT9g.woff2) format('woff2');
-  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+
+small {
+    font-size: 80%
 }
-/* greek-ext */
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: italic;
-  font-weight: 400;
-  src: local('Source Sans Pro Italic'), local('SourceSansPro-Italic'), url(https://fonts.gstatic.com/s/sourcesanspro/v13/6xK1dSBYKcSV-LCoeQqfX1RYOo3qPZ7rsDJT9g.woff2) format('woff2');
-  unicode-range: U+1F00-1FFF;
+
+sub,
+sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline
 }
-/* greek */
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: italic;
-  font-weight: 400;
-  src: local('Source Sans Pro Italic'), local('SourceSansPro-Italic'), url(https://fonts.gstatic.com/s/sourcesanspro/v13/6xK1dSBYKcSV-LCoeQqfX1RYOo3qPZ7ksDJT9g.woff2) format('woff2');
-  unicode-range: U+0370-03FF;
+
+sup {
+    top: -0.5em
 }
-/* vietnamese */
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: italic;
-  font-weight: 400;
-  src: local('Source Sans Pro Italic'), local('SourceSansPro-Italic'), url(https://fonts.gstatic.com/s/sourcesanspro/v13/6xK1dSBYKcSV-LCoeQqfX1RYOo3qPZ7osDJT9g.woff2) format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+
+sub {
+    bottom: -0.25em
 }
-/* latin-ext */
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: italic;
-  font-weight: 400;
-  src: local('Source Sans Pro Italic'), local('SourceSansPro-Italic'), url(https://fonts.gstatic.com/s/sourcesanspro/v13/6xK1dSBYKcSV-LCoeQqfX1RYOo3qPZ7psDJT9g.woff2) format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+
+img {
+    border: 0
 }
-/* latin */
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: italic;
-  font-weight: 400;
-  src: local('Source Sans Pro Italic'), local('SourceSansPro-Italic'), url(https://fonts.gstatic.com/s/sourcesanspro/v13/6xK1dSBYKcSV-LCoeQqfX1RYOo3qPZ7nsDI.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+
+svg:not(:root) {
+    overflow: hidden
 }
-/* cyrillic-ext */
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: italic;
-  font-weight: 700;
-  src: local('Source Sans Pro Bold Italic'), local('SourceSansPro-BoldItalic'), url(https://fonts.gstatic.com/s/sourcesanspro/v13/6xKwdSBYKcSV-LCoeQqfX1RYOo3qPZZclSdh18Smxg.woff2) format('woff2');
-  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+
+figure {
+    margin: 1em 40px
 }
-/* cyrillic */
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: italic;
-  font-weight: 700;
-  src: local('Source Sans Pro Bold Italic'), local('SourceSansPro-BoldItalic'), url(https://fonts.gstatic.com/s/sourcesanspro/v13/6xKwdSBYKcSV-LCoeQqfX1RYOo3qPZZclSdo18Smxg.woff2) format('woff2');
-  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+
+hr {
+    box-sizing: content-box;
+    height: 0
 }
-/* greek-ext */
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: italic;
-  font-weight: 700;
-  src: local('Source Sans Pro Bold Italic'), local('SourceSansPro-BoldItalic'), url(https://fonts.gstatic.com/s/sourcesanspro/v13/6xKwdSBYKcSV-LCoeQqfX1RYOo3qPZZclSdg18Smxg.woff2) format('woff2');
-  unicode-range: U+1F00-1FFF;
+
+pre {
+    overflow: auto
 }
-/* greek */
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: italic;
-  font-weight: 700;
-  src: local('Source Sans Pro Bold Italic'), local('SourceSansPro-BoldItalic'), url(https://fonts.gstatic.com/s/sourcesanspro/v13/6xKwdSBYKcSV-LCoeQqfX1RYOo3qPZZclSdv18Smxg.woff2) format('woff2');
-  unicode-range: U+0370-03FF;
+
+code,
+kbd,
+pre,
+samp {
+    font-family: monospace, monospace;
+    font-size: 1em
 }
-/* vietnamese */
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: italic;
-  font-weight: 700;
-  src: local('Source Sans Pro Bold Italic'), local('SourceSansPro-BoldItalic'), url(https://fonts.gstatic.com/s/sourcesanspro/v13/6xKwdSBYKcSV-LCoeQqfX1RYOo3qPZZclSdj18Smxg.woff2) format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+
+button,
+input,
+optgroup,
+select,
+textarea {
+    color: inherit;
+    font: inherit;
+    margin: 0
 }
-/* latin-ext */
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: italic;
-  font-weight: 700;
-  src: local('Source Sans Pro Bold Italic'), local('SourceSansPro-BoldItalic'), url(https://fonts.gstatic.com/s/sourcesanspro/v13/6xKwdSBYKcSV-LCoeQqfX1RYOo3qPZZclSdi18Smxg.woff2) format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+
+button {
+    overflow: visible
 }
-/* latin */
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: italic;
-  font-weight: 700;
-  src: local('Source Sans Pro Bold Italic'), local('SourceSansPro-BoldItalic'), url(https://fonts.gstatic.com/s/sourcesanspro/v13/6xKwdSBYKcSV-LCoeQqfX1RYOo3qPZZclSds18Q.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+
+button,
+select {
+    text-transform: none
 }
-/* cyrillic-ext */
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'), url(https://fonts.gstatic.com/s/sourcesanspro/v13/6xK3dSBYKcSV-LCoeQqfX1RYOo3qNa7lqDY.woff2) format('woff2');
-  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+    -webkit-appearance: button;
+    cursor: pointer
 }
-/* cyrillic */
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'), url(https://fonts.gstatic.com/s/sourcesanspro/v13/6xK3dSBYKcSV-LCoeQqfX1RYOo3qPK7lqDY.woff2) format('woff2');
-  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+
+button[disabled],
+html input[disabled] {
+    cursor: default
 }
-/* greek-ext */
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'), url(https://fonts.gstatic.com/s/sourcesanspro/v13/6xK3dSBYKcSV-LCoeQqfX1RYOo3qNK7lqDY.woff2) format('woff2');
-  unicode-range: U+1F00-1FFF;
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+    border: 0;
+    padding: 0
 }
-/* greek */
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'), url(https://fonts.gstatic.com/s/sourcesanspro/v13/6xK3dSBYKcSV-LCoeQqfX1RYOo3qO67lqDY.woff2) format('woff2');
-  unicode-range: U+0370-03FF;
+
+input {
+    line-height: normal
 }
-/* vietnamese */
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'), url(https://fonts.gstatic.com/s/sourcesanspro/v13/6xK3dSBYKcSV-LCoeQqfX1RYOo3qN67lqDY.woff2) format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+
+input[type="checkbox"],
+input[type="radio"] {
+    box-sizing: border-box;
+    padding: 0
 }
-/* latin-ext */
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'), url(https://fonts.gstatic.com/s/sourcesanspro/v13/6xK3dSBYKcSV-LCoeQqfX1RYOo3qNq7lqDY.woff2) format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    height: auto
 }
-/* latin */
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'), url(https://fonts.gstatic.com/s/sourcesanspro/v13/6xK3dSBYKcSV-LCoeQqfX1RYOo3qOK7l.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+
+input[type="search"] {
+    -webkit-appearance: textfield;
+    box-sizing: content-box
 }
-/* cyrillic-ext */
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Source Sans Pro Bold'), local('SourceSansPro-Bold'), url(https://fonts.gstatic.com/s/sourcesanspro/v13/6xKydSBYKcSV-LCoeQqfX1RYOo3ig4vwmhduz8A.woff2) format('woff2');
-  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none
 }
-/* cyrillic */
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Source Sans Pro Bold'), local('SourceSansPro-Bold'), url(https://fonts.gstatic.com/s/sourcesanspro/v13/6xKydSBYKcSV-LCoeQqfX1RYOo3ig4vwkxduz8A.woff2) format('woff2');
-  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+
+fieldset {
+    border: 1px solid #c0c0c0;
+    margin: 0 2px;
+    padding: 0.35em 0.625em 0.75em
 }
-/* greek-ext */
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Source Sans Pro Bold'), local('SourceSansPro-Bold'), url(https://fonts.gstatic.com/s/sourcesanspro/v13/6xKydSBYKcSV-LCoeQqfX1RYOo3ig4vwmxduz8A.woff2) format('woff2');
-  unicode-range: U+1F00-1FFF;
+
+legend {
+    border: 0;
+    padding: 0
 }
-/* greek */
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Source Sans Pro Bold'), local('SourceSansPro-Bold'), url(https://fonts.gstatic.com/s/sourcesanspro/v13/6xKydSBYKcSV-LCoeQqfX1RYOo3ig4vwlBduz8A.woff2) format('woff2');
-  unicode-range: U+0370-03FF;
+
+textarea {
+    overflow: auto
 }
-/* vietnamese */
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Source Sans Pro Bold'), local('SourceSansPro-Bold'), url(https://fonts.gstatic.com/s/sourcesanspro/v13/6xKydSBYKcSV-LCoeQqfX1RYOo3ig4vwmBduz8A.woff2) format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+
+optgroup {
+    font-weight: bold
 }
-/* latin-ext */
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Source Sans Pro Bold'), local('SourceSansPro-Bold'), url(https://fonts.gstatic.com/s/sourcesanspro/v13/6xKydSBYKcSV-LCoeQqfX1RYOo3ig4vwmRduz8A.woff2) format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0
 }
-/* latin */
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Source Sans Pro Bold'), local('SourceSansPro-Bold'), url(https://fonts.gstatic.com/s/sourcesanspro/v13/6xKydSBYKcSV-LCoeQqfX1RYOo3ig4vwlxdu.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+
+td,
+th {
+    padding: 0
+}
+
+.highlight table td {
+    padding: 5px
+}
+
+.highlight table pre {
+    margin: 0
+}
+
+.highlight .cm {
+    color: #999988;
+    font-style: italic
+}
+
+.highlight .cp {
+    color: #999999;
+    font-weight: bold
+}
+
+.highlight .c1 {
+    color: #999988;
+    font-style: italic
+}
+
+.highlight .cs {
+    color: #999999;
+    font-weight: bold;
+    font-style: italic
+}
+
+.highlight .c,
+.highlight .cd {
+    color: #999988;
+    font-style: italic
+}
+
+.highlight .err {
+    color: #a61717;
+    background-color: #e3d2d2
+}
+
+.highlight .gd {
+    color: #000000;
+    background-color: #ffdddd
+}
+
+.highlight .ge {
+    color: #000000;
+    font-style: italic
+}
+
+.highlight .gr {
+    color: #aa0000
+}
+
+.highlight .gh {
+    color: #999999
+}
+
+.highlight .gi {
+    color: #000000;
+    background-color: #ddffdd
+}
+
+.highlight .go {
+    color: #888888
+}
+
+.highlight .gp {
+    color: #555555
+}
+
+.highlight .gs {
+    font-weight: bold
+}
+
+.highlight .gu {
+    color: #aaaaaa
+}
+
+.highlight .gt {
+    color: #aa0000
+}
+
+.highlight .kc {
+    color: #000000;
+    font-weight: bold
+}
+
+.highlight .kd {
+    color: #000000;
+    font-weight: bold
+}
+
+.highlight .kn {
+    color: #000000;
+    font-weight: bold
+}
+
+.highlight .kp {
+    color: #000000;
+    font-weight: bold
+}
+
+.highlight .kr {
+    color: #000000;
+    font-weight: bold
+}
+
+.highlight .kt {
+    color: #445588;
+    font-weight: bold
+}
+
+.highlight .k,
+.highlight .kv {
+    color: #000000;
+    font-weight: bold
+}
+
+.highlight .mf {
+    color: #009999
+}
+
+.highlight .mh {
+    color: #009999
+}
+
+.highlight .il {
+    color: #009999
+}
+
+.highlight .mi {
+    color: #009999
+}
+
+.highlight .mo {
+    color: #009999
+}
+
+.highlight .m,
+.highlight .mb,
+.highlight .mx {
+    color: #009999
+}
+
+.highlight .sb {
+    color: #d14
+}
+
+.highlight .sc {
+    color: #d14
+}
+
+.highlight .sd {
+    color: #d14
+}
+
+.highlight .s2 {
+    color: #d14
+}
+
+.highlight .se {
+    color: #d14
+}
+
+.highlight .sh {
+    color: #d14
+}
+
+.highlight .si {
+    color: #d14
+}
+
+.highlight .sx {
+    color: #d14
+}
+
+.highlight .sr {
+    color: #009926
+}
+
+.highlight .s1 {
+    color: #d14
+}
+
+.highlight .ss {
+    color: #990073
+}
+
+.highlight .s {
+    color: #d14
+}
+
+.highlight .na {
+    color: #008080
+}
+
+.highlight .bp {
+    color: #999999
+}
+
+.highlight .nb {
+    color: #0086B3
+}
+
+.highlight .nc {
+    color: #445588;
+    font-weight: bold
+}
+
+.highlight .no {
+    color: #008080
+}
+
+.highlight .nd {
+    color: #3c5d5d;
+    font-weight: bold
+}
+
+.highlight .ni {
+    color: #800080
+}
+
+.highlight .ne {
+    color: #990000;
+    font-weight: bold
+}
+
+.highlight .nf {
+    color: #990000;
+    font-weight: bold
+}
+
+.highlight .nl {
+    color: #990000;
+    font-weight: bold
+}
+
+.highlight .nn {
+    color: #555555
+}
+
+.highlight .nt {
+    color: #000080
+}
+
+.highlight .vc {
+    color: #008080
+}
+
+.highlight .vg {
+    color: #008080
+}
+
+.highlight .vi {
+    color: #008080
+}
+
+.highlight .nv {
+    color: #008080
+}
+
+.highlight .ow {
+    color: #000000;
+    font-weight: bold
+}
+
+.highlight .o {
+    color: #000000;
+    font-weight: bold
+}
+
+.highlight .w {
+    color: #bbbbbb
+}
+
+.highlight {
+    background-color: #f8f8f8
 }
 
 * {
-  -moz-box-sizing: border-box;
-  box-sizing: border-box; }
-
-body, code, h1, h2, h3, p, pre, html {
-  margin: 0;
-  padding: 0; }
-
-html {
-  height: 100%;
-  min-height: 100%; }
+    box-sizing: border-box
+}
 
 body {
-  background: white;
-  color: #333333;
-  font: 16px/25px "Source Sans Pro", georgia, serif;
-  height: 100%;
-  min-height: 100%; }
-
-hr {
-  display: block;
-  height: 1px;
-  border: 0;
-  border-top: 1px solid whitesmoke;
-  margin: 1em 0;
-  padding: 0; }
-
-blockquote {
-  color: #9c9fa2;
-  margin: 0;
-  max-width: 24em;
-  margin-left: 0.5em; }
-
-date {
-  color: #60666a; }
-
-.page {
-  margin: 0 auto;
-  width: 800px;
-  min-height: calc(100% - 16.75em); }
-  .page:after {
-    content: "";
-    display: table;
-    clear: both; }
-
-.main-column, main {
-  position: relative;
-  width: 560px; }
-
-.logo {
-  height: 7em;
-  position: relative;
-  margin: auto;
-  display: block;
-  left: -1em;
-  margin-bottom: 2em; }
-
-header {
-  background: white;
-  border-bottom: solid 1px #ebebec; }
-  header .page {
-    height: 8em; }
-  header h1 {
-    position: absolute;
-    left: -8px;
-    top: 1.51667em;
     padding: 0;
-    font: 400 48px "Sanchez", helvetica, arial, sans-serif;
-    letter-spacing: 2px; }
-  header h2 {
-    position: absolute;
-    left: 0;
-    top: 8.5em;
-    padding: 0;
-    font: 500 13px "Lato", helvetica, arial, sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: #pink; }
-  header a {
-    color: #pink; }
-  header a:hover {
-    color: #pink;
-    /*text-shadow: 0 0 6px $link-glow;*/ }
-
-nav {
-  float: right;
-  width: 160px;
-  margin-top: 2em; }
-  nav h2 {
-    color: #60666a;
-    font: 500 13px "Lato", helvetica, arial, sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin: 0; }
-  nav ul {
-    padding: 0;
-    margin: 6px 0 20px 0; }
-  nav li {
-    font: 17px "Source Sans Pro", georgia, serif;
-    color: #c3c5c7;
-    list-style-type: none;
-    margin: 0 0 4px 0; }
-
-nav.small {
-  display: none;
-  float: none;
-  width: 100%;
-  padding: 16px 0 0 0;
-  margin: 0;
-  background: #ebebec; }
-  nav.small table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 16px 0; }
-  nav.small h2 {
-    margin: 16px 0 0 0;
-    padding: 0 0 1px 0;
-    border-bottom: solid 1px #d7d8da; }
-
-h1 {
-  padding-top: 30px;
-  font: 500 36px/60px "Sanchez", helvetica, arial, sans-serif;
-  color: #pink; }
-
-h2 {
-  font: 500 24px "Sanchez", helvetica, arial, sans-serif;
-  margin: 24px 0 0 0;
-  color: #3399cc; }
-  h2 code {
-    border: none;
-    background: inherit;
-    color: inherit;
-    font-size: 24px; }
-
-h3 {
-  font: 20px "Source Sans Pro", georgia, serif;
-  margin: 24px 0 0 0;
-  color: #3399cc; }
-  h3 code {
-    border: none;
-    background: inherit;
-    color: inherit;
-    font-size: 20px; }
+    margin: 0;
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #606c71
+}
 
 a {
-  color: #3399cc;
-  text-decoration: none;
-  transition: color 0.2s, text-shadow 0.2s;
-  outline: none; }
-
-main {
-  margin-top: 2em;
-  float: center; }
-  main .intro {
-    border-bottom: solid 1px #ebebec;
-    margin-bottom: -0.5em; }
-  main h2 {
-    display: block;
-    position: relative;
-    max-width: 16em; }
+    color: #1e6bb8;
+    text-decoration: none
+}
 
 a:hover {
-  color: #pink; }
+    text-decoration: underline
+}
 
-.header-anchor {
-  color: white; }
+.btn {
+    display: inline-block;
+    margin-bottom: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 0.3rem;
+    transition: color 0.2s, background-color 0.2s, border-color 0.2s
+}
 
-h2:hover > .header-anchor,
-h3:hover > .header-anchor {
-  color: #ebebec; }
+.btn:hover {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3)
+}
 
-h2:hover > .header-anchor:hover,
-h3:hover > .header-anchor:hover {
-  color: #143352; }
+.btn+.btn {
+    margin-left: 1rem
+}
 
-p {
-  margin: 10px 0; }
+@media screen and (min-width: 64em) {
+    .btn {
+        padding: 0.75rem 1rem
+    }
+}
 
-p + p {
-  margin-top: 20px; }
+@media screen and (min-width: 42em) and (max-width: 64em) {
+    .btn {
+        padding: 0.6rem 0.9rem;
+        font-size: 0.9rem
+    }
+}
 
-code, pre {
-  color: #3d4c5c;
-  font: 13px "Source Code Pro", Menlo, Monaco, Consolas, monospace;
+@media screen and (max-width: 42em) {
+    .btn {
+        display: block;
+        width: 100%;
+        padding: 0.75rem;
+        font-size: 0.9rem
+    }
+    .btn+.btn {
+        margin-top: 1rem;
+        margin-left: 0
+    }
+}
 
-  background: #fcfcfc;
-  border-radius: 2px;
-  border: solid 1px #dae2e7; }
+.page-header {
+    color: #fff;
+    text-align: center;
+    background-color: #159957;
+    background-image: linear-gradient(120deg, lightgreen, dodgerblue)
+}
 
-code {
-  padding: 1px 2px;
-  white-space: nowrap; }
+@media screen and (min-width: 64em) {
+    .page-header {
+        padding: 5rem 6rem
+    }
+}
 
-pre {
-  margin: 10px 0;
-  line-height: 20px;
-  padding: 10px;
-  overflow: auto;
-  white-space: pre-wrap; }
+@media screen and (min-width: 42em) and (max-width: 64em) {
+    .page-header {
+        padding: 3rem 4rem
+    }
+}
 
-footer {
-  margin-top: 4em;
-  padding: 20px 0 40px 0;
-  font: 14px "Source Sans Pro", georgia, serif;
-  background: ;
-  color: ;
-  text-align: center;
-   }
-  footer a {
-    color: dodgerblue; }
-  footer a:hover {
-    color: #3399cc; }
+@media screen and (max-width: 42em) {
+    .page-header {
+        padding: 2rem 1rem
+    }
+}
 
-.right {
-  float: right; }
+.project-name {
+    margin-top: 0;
+    margin-bottom: 0.1rem
+}
 
-.codehilite pre span.c1, .codehilite pre span.cm {
-  color: #89929c; }
-.codehilite pre span.k, .codehilite pre span.kd, .codehilite pre span.kc, .codehilite pre span.kt, .codehilite pre span.nb {
-  color: #269dd9; }
-.codehilite pre span.vg {
-  color: #D831B0; }
-.codehilite pre span.vi {
-  color: #59a112; }
-.codehilite pre span.vc {
-  color: #29a33d; }
-.codehilite pre span.nf {
-  color: #29a3a3; }
-.codehilite pre span.m, .codehilite pre span.mi, .codehilite pre span.mf {
-  color: #80b34d; }
-.codehilite pre span.s, .codehilite pre span.s2 {
-  color: hsl(208, 100%, 50%); }
-.codehilite pre span.se {
-  color: #dab80b; }
-.codehilite pre span.si {
-  color: #c2a30a;
-  background: #fef6e7; }
-.codehilite pre span.o {
-  color: #4d90b3; }
-.codehilite pre span.p {
-  color: #636f7c; }
-.codehilite pre span.cp {
-  color: #9970c2; }
-.codehilite pre span.output {
-  float: right;
-  color: #39ac73; }
-  .codehilite pre span.output::before, .codehilite pre span.output::after {
-    color: #b3e6cc; }
-  .codehilite pre span.output::before {
-    content: "\276c  "; }
-  .codehilite pre span.output::after {
-    content: ' \276d'; }
-.codehilite pre span.error {
-  float: right;
-  color: #cc6677; }
-  .codehilite pre span.error::before {
-    color: #df9faa;
-    content: "Error: "; }
+@media screen and (min-width: 64em) {
+    .project-name {
+        font-size: 3.25rem
+    }
+}
 
-body.module header a {
-  color: #; }
-body.module header a:hover {
-  color: #7de88f; }
-body.module a {
-  color: #1fad66; }
-body.module a:hover {
-  color: #19664d; }
-body.module .header-anchor {
-  color: white; }
-body.module main h1, body.module main h2, body.module main h3 {
-  color: #1fad66; }
-body.module main h2:hover > .header-anchor:hover,
-body.module main h3:hover > .header-anchor:hover {
-  color: #19664d; }
-body.module footer a {
-  color: #7de88f; }
-body.module footer a:hover {
-  color: #1fad66; }
+@media screen and (min-width: 42em) and (max-width: 64em) {
+    .project-name {
+        font-size: 2.25rem
+    }
+}
+
+@media screen and (max-width: 42em) {
+    .project-name {
+        font-size: 1.75rem
+    }
+}
+
+.project-tagline {
+    margin-bottom: 2rem;
+    font-weight: normal;
+    opacity: 0.7
+}
+
+@media screen and (min-width: 64em) {
+    .project-tagline {
+        font-size: 1.25rem
+    }
+}
+
+@media screen and (min-width: 42em) and (max-width: 64em) {
+    .project-tagline {
+        font-size: 1.15rem
+    }
+}
+
+@media screen and (max-width: 42em) {
+    .project-tagline {
+        font-size: 1rem
+    }
+}
+
+.main-content {
+    word-wrap: break-word
+}
+
+.main-content:first-child {
+    margin-top: 0
+}
+
+@media screen and (min-width: 64em) {
+    .main-content {
+        max-width: 64rem;
+        padding: 2rem 6rem;
+        margin: 0 auto;
+        font-size: 1.1rem
+    }
+}
+
+@media screen and (min-width: 42em) and (max-width: 64em) {
+    .main-content {
+        padding: 2rem 4rem;
+        font-size: 1.1rem
+    }
+}
+
+@media screen and (max-width: 42em) {
+    .main-content {
+        padding: 2rem 1rem;
+        font-size: 1rem
+    }
+}
+
+.main-content img {
+    max-width: 100%
+}
+
+.main-content h1,
+.main-content h2,
+.main-content h3,
+.main-content h4,
+.main-content h5,
+.main-content h6 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: normal;
+    color: #159957
+}
+
+.main-content p {
+    margin-bottom: 1em
+}
+
+.main-content code {
+    padding: 2px 4px;
+    font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    font-size: 0.9rem;
+    color: #567482;
+    background-color: #f3f6fa;
+    border-radius: 0.3rem
+}
+
+.main-content pre {
+    padding: 0.8rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font: 1rem Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    color: #567482;
+    word-wrap: normal;
+    background-color: #f3f6fa;
+    border: solid 1px #dce6f0;
+    border-radius: 0.3rem
+}
+
+.main-content pre>code {
+    padding: 0;
+    margin: 0;
+    font-size: 0.9rem;
+    color: #567482;
+    word-break: normal;
+    white-space: pre;
+    background: transparent;
+    border: 0
+}
+
+.main-content .highlight {
+    margin-bottom: 1rem
+}
+
+.main-content .highlight pre {
+    margin-bottom: 0;
+    word-break: normal
+}
+
+.main-content .highlight pre,
+.main-content pre {
+    padding: 0.8rem;
+    overflow: auto;
+    font-size: 0.9rem;
+    line-height: 1.45;
+    border-radius: 0.3rem;
+    -webkit-overflow-scrolling: touch
+}
+
+.main-content pre code,
+.main-content pre tt {
+    display: inline;
+    max-width: initial;
+    padding: 0;
+    margin: 0;
+    overflow: initial;
+    line-height: inherit;
+    word-wrap: normal;
+    background-color: transparent;
+    border: 0
+}
+
+.main-content pre code:before,
+.main-content pre code:after,
+.main-content pre tt:before,
+.main-content pre tt:after {
+    content: normal
+}
+
+.main-content ul,
+.main-content ol {
+    margin-top: 0
+}
+
+.main-content blockquote {
+    padding: 0 1rem;
+    margin-left: 0;
+    color: #819198;
+    border-left: 0.3rem solid #dce6f0
+}
+
+.main-content blockquote>:first-child {
+    margin-top: 0
+}
+
+.main-content blockquote>:last-child {
+    margin-bottom: 0
+}
+
+.main-content table {
+    display: block;
+    width: 100%;
+    overflow: auto;
+    word-break: normal;
+    word-break: keep-all;
+    -webkit-overflow-scrolling: touch
+}
+
+.main-content table th {
+    font-weight: bold
+}
+
+.main-content table th,
+.main-content table td {
+    padding: 0.5rem 1rem;
+    border: 1px solid #e9ebec
+}
+
+.main-content dl {
+    padding: 0
+}
+
+.main-content dl dt {
+    padding: 0;
+    margin-top: 1rem;
+    font-size: 1rem;
+    font-weight: bold
+}
+
+.main-content dl dd {
+    padding: 0;
+    margin-bottom: 1rem
+}
+
+.main-content hr {
+    height: 2px;
+    padding: 0;
+    margin: 1rem 0;
+    background-color: #eff0f1;
+    border: 0
+}
+
+.site-footer {
+    padding-top: 2rem;
+    margin-top: 2rem;
+    border-top: solid 1px #eff0f1
+}
+
+@media screen and (min-width: 64em) {
+    .site-footer {
+        font-size: 1rem
+    }
+}
+
+@media screen and (min-width: 42em) and (max-width: 64em) {
+    .site-footer {
+        font-size: 1rem
+    }
+}
+
+@media screen and (max-width: 42em) {
+    .site-footer {
+        font-size: 0.9rem
+    }
+}
+
+.site-footer-owner {
+    display: block;
+    font-weight: bold
+}
+
+.site-footer-credits {
+    color: #819198
+}
 
 table {
   width: 100%;
+  border: none;
   border-collapse: collapse; }
   table tr {
     margin: 0;
@@ -647,216 +927,140 @@ table.precedence td {
   padding: 3px 0;
   border-bottom: solid 1px #ebebec; }
 
-@media only screen and (max-width: 839px) {
-  .page {
-    width: 720px; }
+    </style>
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Nua-lang</h1>
+      <h2 class="project-tagline">Lua for the future</h2>
 
-  nav {
-    width: 144px; }
-
-  .main-column, main {
-    width: 504px; } }
-@media only screen and (max-width: 759px) {
-  .page {
-    width: 640px; }
-
-  nav {
-    width: 128px; }
-
-  .main-column, main {
-    width: 448px; } }
-@media only screen and (max-width: 679px) {
-  .page {
-    width: 560px; }
-
-  nav {
-    width: 112px; }
-
-  .main-column, main {
-    width: 392px; }
-
-  header h2 {
-    font-size: 12px;
-    letter-spacing: 1px; } }
-@media only screen and (max-width: 639px) {
-  .page {
-    text-align: center;
-    width: 100%; }
-
-  nav.big {
-    display: none; }
-
-  nav.small {
-    display: block; }
-
-  .main-column, main {
-    padding: ;
-    width: 100%; }
-
-  header h1 {
-    position: relative;
-    top: 10px;
-    left: 0;
-    text-align: center; }
-  header h2 {
-    position: relative;
-    top: 0;
-    right: 0;
-    text-align: center;
-    font-size: 13px;
-    letter-spacing: 2px; }
-
-  main {
-    float: none;
-    width: 100%; }
-
-  pre {
-    font-size: 13px; }
-
-  footer {
-    padding: 20px 20px 40px 20px; } }
-
-</style>
-<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
-<title> &ndash; Nua</title>
-<link rel="stylesheet" type="text/css" href="style.css" />
-<link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic|Source+Code+Pro:400|Lato:400|Sanchez:400italic,400' rel='stylesheet' type='text/css'>
-
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-</head>
-<body id="top">
-<header>
-  <div class="page" style="text-align: center;">
-    <div class="main-column">
-      <h1>Nua </h1>
-      <h2>a stable reimplementation of the Lua-C </h2>
-    </div>
-  </div>
-</header>
-<div class="page">
+        <a href="https://github.com/nua-lang/nua" class="btn">Install |   v.0.1.4</a>
 
 
+    </section>
+
+    <section class="main-content">
+      <h1 id="llcom"><a href="htt/">Nua</a></h1>
 
 
+<img src="https://chenxuuu.visualstudio.com/llcom/_apis/build/status/chenxuuu.llcom?branchName=master&amp;jobName=Job" alt="Build Status" /></a>
+<img src="https://ci.appveyor.com/api/projects/status/telji5j8r0v5001c?svg=true" alt="Build status" /></a>
+<img src="https://img.shields.io/static/v1.svg?label=license&amp;message=Apache+2&amp;color=blue" alt="MIT" /></a>
+<img src="https://img.shields.io/github/languages/code-size/chenxuuu/llcom.svg" alt="code-size" /></a></p>
 
-  <main>
-    <h2></h2>
-    <h2>Nua is a lightweight, fast object-oriented programming language <a href="#wren-is-a-small,-fast,-class-based-concurrent-scripting-language" name="wren-is-a-small,-fast,-class-based-concurrent-scripting-language" class="header-anchor"></a></h2>
-<hr />
-<p>Lua VM in JavaScript that transpiles to C.
-It has a modern <a href="syntax.html">syntax</a>. </p>
-<div class="codehilite"><pre><span style="color: #1b9898;">local</span><span class="o"> = </span><span class="vg">require</span><span class="p">(</span><span class="s">&quot;./Nuac.nua&quot;</span><span class="p">)</span>
+<p>Combines flexibillity of Lua and port to JavaScript：<code class="language-plaintext highlighter-rouge">Nua</code></p>
 
-<span style="color: #1b9898;">function</span> <span class="vg">fib</span> <span class="p">(<span class="vg">n</span>)</span>
-  <span class="k">if</span><span class="p">(<span class="vg">n</span></span><span class="n"> < <span class="s">0</span></span><span class="p">)</span> <span class="p"></span>
-    <span class="k">then</span><span class="o"> </span><span style="color: #1b9898;">print</span><span class="p"></span><span class="">(</span><span class="vg">n</span>)</span><span class="si"></span><span class="n"></span><span class="si"></span><span class="s"></span><span class="p"></span>
-  <span class="k">else</span><span style="color: #1b9898;"> print</span>(</span><span class="s"><span class="vg">n</span> - 1</span>) + (<span class="vg">n</span><span class="s"> + 2</span>)</span>
-<span style="color: #1b9898;">end</span>
-<span style="font-weight: cursive;" class="p">--should print the fibonnacci serie</span>
+<h2 id="">Latest Releases</h2>
 
-</pre></div>
+<p>release v.0.1.4：<a href="https://github.com//releases/latest">GitHub</a></p>
 
 
+<h2 id="功能列表">Why you should use nua?</h2>
+
+<ul>
+  <li>Until 15% faster than Lua 5.3</li>
+  <li>Port to JavaScript</li>
+  <li>Usage in Browser</li>
+  <li>Covers 100% Lua syntax</li>
+  <li>Powerful C-Api</li>
+  <li>Npm packages</li>
+  <li>Json-bindings</li>
+  <li>C-bindings</li>
+  <li>Code coverages <a href="http://wikwork/">using Istanbul.io</a></li>
+</ul>
 
 
-<p><strong>Nua is strong.</strong> The JS - Api implementation is  exactly the <a href="https:/rc">same as the C - Api</a>.
-    It's syntax bases on <em>Lua 5.3.4</em>, but has
-    <em>some </em>modified builtins. It is readable and <a href="https://github3">production ready</a>. </p>
+<h2 id="特色功能示范">Install</h2>
+
+<h3 id="使用lua脚本提前处理待发送的数据">Install Nua v.0.1.4 right from here!</h3>
+
+<ol>
+  <li>paste it in a native shell</li>
+</ol>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">npm install -g nuac</span> <span class="n"></span><span class="o"></span><span class="s2"></span><span class="se"></span><span class="s2"></span>
+</code></pre></div></div>
+
+<ol>
+  <li>Finished! Compile you .nua file with...</li>
+</ol>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">nuac -e yourfile.nua</span> <span class="n"></span><span class="p"></span><span class="n"></span><span class="p"></span>
+</code></pre></div></div>
+
+<p>Start writing nua files using it's reference in JS codes using the <code class="language-plaintext highlighter-rouge">require</code> keyword.</p>
 
 
-<p><strong>Nua is fast.</strong> A fast tree-byte interpreter and a efficient C-VM are using
-    lightweight fibers <a href="performance.html">for couroutines
-    </a>. </p>
-    <hr />
-    <h4>C-bindings</h4>
-    <p>Nua has explicit <strong>new</strong> C bindings
-    in order to share code across the C <a href="syntax.html">librairy</a>. </p>
-    <div class="codehilite"><pre>
-    <span class="vg">#include "nuac.h"
-    #include "nuac.hpp"
-
-  </span><span class="p">//embedding the stdlib for C</span>
-    </span>
-    </pre></div>
-<p>Initializing the VM in C. Load the C-Api from JS to C. So this code is kinda a little embedded VM in C.
-It is very easy to handle. While building the NuaC-Lib in node.js, it will directly build the C-core VM. So you can use these definitions rightaway.
-</p>
-<div class="codehilite"><pre>
-<span>#include "nuac.h"
-#include "nuac.hpp"
-#include "nua.nua"
-#include "nuac.nua"
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">local</span> <span class="o"> =</span> <span class="nb"> require</span><span class="p">(</span><span class="s2">"nua.nua"</span><span class="p">)</span>
+  <span class="n">function</span> <span class="o">greet</span><span class="n">()</span>
+  <span class="o">  greet </span>=<span class="n"></span><span class="p"></span> <span class="s2">"Hello, World!"</span><span class="p"></span>
+      <span class="o">if</span> <span class="n">(greet ==<spa class="nb"n> string)</span></span><span class="p"></span><span class="n"></span><span class="p"></span>
+        <span class="o">then</span><span class="o"></span> <span class="nb">print</span><span class="p">(</span><span class="mi">greet</span><span class="p">),</span>
+      <span class="o">else</span> <span class="nb">print</span>(<span class="s2">"Value is nil"</span>)<span class="p"></span><span class="mi"></span><span class="p"></span>
+    <span class="o">end</span> <span class="o"></span> <span class="n"></span><span class="p"></span><span class="mi"></span><span class="p"></span>
+<span class="p"></span>
+</code></pre></div></div>
 
 
-  typedef struct
-{
-  NuaReallocateFn reallocateFn;
-  NuaLoadModuleFn loadModuleFn;
-  NuaBindForeignMethodFn bindForeignMethodFn;
-  NuaBindForeignClassFn bindForeignClassFn;
-  NuaWriteFn writeFn;
-  NuaErrorFn errorFn;
-  size_t initialHeapSize;
-  size_t minHeapSize;
-  int heapGrowthPercent;
-} NuaConfiguration;</span>
-</pre></div>
-<p>Calling Nua data from C. So you just can handle the Nua data as a imported C data that can strore it in the NuaC.</p>
-    <div class="codehilite"><pre>
-    <span class="">  local = require("c.hpp")
-      local = require("c.c")
-      local = require("nuac.hpp")
-      local = require("nuac.c")
-      local = require("nuac.nua")
-    <span class="vg">foreign class NuaWriteFn </span>{</span>
-    <span>  printf("Hello, from C!")</span>
-    <span>}</span>
-    </pre></div>
-<p>Basically the above code hits the definitions written in C and stores it's data in NuaC.</p>
-<hr>
+<h3 id="独立的lua脚本自动处理串口收发">Nua means <stron>speed!</strong></h3>
 
-<h4>Nua means quality!</h4>
-<p><strong>Nua is strong!</strong> Nua is tested against Python3, Ruby, Dart, LuaJIT (J - enabled), Csharp and Haskell.<a href="https:/rc"> see the benchmarks here.</a>
-  <h4>Fibonacci-sequence:</h4>
-  <table class="chart">
-    <tr>
-      <th>Nua</th><td><div class="chart-bar wren" style="width: 17%;">0.15&nbsp;</div></td>
-    </tr>
-    <tr>
-      <th>ruby</th><td><div class="chart-bar" style="width: 35%;">0.22s&nbsp;</div></td>
+<p>Nua is tested against Dart, Ruby, PHP, csharp, LuaJIT (j-on), Crystal and Haskell.</p>
 
-    </tr>
-    <tr>
-      <th>luajit (-j-on)</th><td><div class="chart-bar" style="width: 39%;">0.28s&nbsp;</div></td>
-
-    </tr>
-    <tr>
-      <th>csharp</th><td><div class="chart-bar" style="width: 49%;">0.28s&nbsp;</div></td>
-    </tr>
-    <tr>
-      <th>Haskell</th><td><div class="chart-bar" style="width: 90%;">0.51s&nbsp;</div></td>
-    </tr>
-    <tr>
-      <th>python3</th><td><div class="chart-bar" style="width: 100%;">0.57s&nbsp;</div></td>
-    </tr>
-  </table>
+<img src="https://raw.githubusercontent.com/Nua-lang/Images/master/fib.png"></img>
 <p>The fib function is tested on a Lenovo L390 Yoga with an Intel core(R)(TM) i5-8265U CPU @ 1.60GHz - 1.80GHz. 8.00GB RAM memory on windows 10.
 As we see Nua is on <strong>first</strong> position. Hurray! But as we know we'have tested the fib with LuaJIT J-enabled. Would it be disabled it would be <strong>very much</strong> faster.
-The Nua is tested on the NuaC -librairy, that means it will be transpiled to C. So that's the source of Quality. However, NuaC is using until 32bit variables, that will make it faster. We're working still on 64-bits. 
+The Nua is tested on the NuaC -librairy, that means it will be transpiled to C. So that's the source of Quality. However, NuaC is using until 32bit variables, that will make it faster. We're working still on 64-bits.
 </p>
-  </main>
-</div>
-<footer>
-  <div class="page">
-    <div class="main-column">
-    <p>Nua is
-      <a href="https://github.com/Nua-lang/Nua">on GitHub</a>
-      &mdash; Made with &#x2764; by
-      <a href="http://">Timo Sarkar</a>
-      .
-    </p>
-    <div class="main-column">
-  </div>
-</footer>
-</body>
+
+
+<p>Nua's fib benchmark</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">local </span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s2">"nua.nua"</span>)<span class="p"></span><span class="n"></span><span class="p"></span><span class="n"></span><span class="p"></span><span class="n"></span><span class="p"></span><span class="s2"></span><span class="p"></span>
+<span class="o">function</span><span class="p"> fib(n)</span>
+<span class="o">  if</span> (<span class="s2">n</span> > 0</span>)
+<span class="o">    then </span><span class="nb">print</span>(<span class="s2">n</span>)
+<span class="o">  else</span> <span class="nb">print</span>(<span class="s2">n - 1</span>) + (<span class="s2">n + 2</span>)
+<span class="o">end</span>
+<span class="c1">--prints the fib function </span>
+</code></pre></div></div>
+
+<p>pretty clean and elegant!</p>
+
+
+<blockquote>
+  <table>
+    <tbody>
+      <tr>
+        <td>by Timo Sarkar（<a href="https://www.com">CV</a>)</td>
+        <td>Nua's ecosystem lives on <a href="https://github.com/nua/">GitHub</a></td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<script>
+//更改GitHub指向
+document.querySelector('.page-header .btn').href = "https://github.com/nua";
+//百度统计
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?8b2cebf43cf94b61e722e3a25d0e2130";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+      <footer class="site-footer">
+
+          <span class="site-footer-owner"><a href="https://github.com/nua">Nua-lang.org</a> is maintained by <a href="https://github.com/timo-cmd">timo-cmd</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+      </footer>
+    </section>
+
+
+  </body>
 </html>
