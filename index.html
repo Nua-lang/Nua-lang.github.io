@@ -1015,11 +1015,12 @@ The Nua is tested on the NuaC -librairy, that means it will be transpiled to C. 
 
 <p>Nua's fib benchmark</p>
 
-<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">local </span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s2">"nua.nua"</span>)<span class="p"></span><span class="n"></span><span class="p"></span><span class="n"></span><span class="p"></span><span class="n"></span><span class="p"></span><span class="s2"></span><span class="p"></span>
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n"> </span> <span class="o"></span> <span class="nb">require</span><span class="p"></span><span class="s2"></span><span class="p"></span><span class="n"></span><span class="p"></span><span class="n"></span><span class="p"></span><span class="n"></span><span class="p"></span><span class="s2"></span><span class="p"></span>
 <span class="o">function</span><span class="p"> fib(n)</span>
 <span class="o">  if</span> (<span class="s2">n</span> > 0</span>)
-<span class="o">    then </span><span class="nb">print</span>(<span class="s2">n</span>)
-<span class="o">  else</span> <span class="nb">print</span>(<span class="s2">n - 1</span>) + (<span class="s2">n + 2</span>)
+<span class="o">    then </span><span class="nb">return</span><span class="s2"> n</span>
+<span class="o">  else</span> <span class="nb">return</span>fib(<span class="s2">n - 1</span>) + fib<span class="s2">(n + 2)</span>
+<span class="o"> end</span>
 <span class="o">end</span>
 <span class="c1">--prints the fib function </span>
 </code></pre></div></div>
